@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+* {
+  font-family: "Outfit", sans-serif;
+}
+
+@theme {
+  --color-primary: #5044E5;
+}
+
+body, html {
+  background-color: #000;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.reset-tw, .reset-tw * {
+  all: revert !important;
+}
+
+.cl-drawerRoot {
+  z-index: 10;
+}
+
+/* Moving Gradient Background */
+@keyframes moveGradient {
+  0% { 
+    background-position: 0% 50%; 
+    transform: rotate(0deg) scale(1);
+  }
+  25% { 
+    background-position: 100% 50%; 
+    transform: rotate(90deg) scale(1.1);
+  }
+  50% { 
+    background-position: 100% 100%; 
+    transform: rotate(180deg) scale(1);
+  }
+  75% { 
+    background-position: 0% 100%; 
+    transform: rotate(270deg) scale(1.1);
+  }
+  100% { 
+    background-position: 0% 50%; 
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.moving-gradient-bg {
+  background: linear-gradient(45deg, #5044E5, #7c3aed, #0ea5e9, #5044E5);
+  background-size: 400% 400%;
+  animation: moveGradient 20s ease infinite;
+  opacity: 0.15;
+  filter: blur(100px);
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  z-index: -1;
+  top: -10%;
+  left: -10%;
+}
+
+/* ♾️ Infinite Brand Loop */
+@keyframes scrollLoop {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.brand-marquee {
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.brand-track {
+  display: flex;
+  width: max-content;
+  animation: scrollLoop 30s linear infinite;
+}
+
+.brand-logo {
+  height: 26px;
+  margin: 0 1.5rem;
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.brand-logo:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
