@@ -80,7 +80,9 @@ const Dashboard = () => {
           <div className='text-gray-300'>
             <p className='text-sm'>Active Plan</p>
             <h2 className='text-xl font-semibold'>
-              <Protect plan='premium' fallback='Free'>Premium</Protect>
+              <Protect plan='premium' fallback={<span>Free</span>}>
+                <span>Premium</span>
+              </Protect>
             </h2>
           </div>
           <div className='w-10 h-10 rounded-lg bg-gradient-to-br from-[#FF61C5] to-[#9E53EE] text-white flex justify-center items-center'>
