@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Gem, Sparkles } from 'lucide-react'
+import { Gem, Sparkles, Trash2 } from 'lucide-react'
 import { Protect, useAuth } from '@clerk/clerk-react'
 import CreationItem from '../components/CreationItem'
 import axios from 'axios'
@@ -31,6 +31,26 @@ const Dashboard = () => {
       toast.error(error.message)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const deleteCreation = async (id) => {
+    try {
+      const token = await getToken()
+      if (!token) return
+
+      const { data } = await axios.delete(`/api/user/delete-creation/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+
+      if (data.success) {
+        toast.success('Creation deleted successfully')
+        setCreations(creations.filter(creation => creation.id !== id))
+      } else {
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
     }
   }
 
@@ -78,14 +98,21 @@ const Dashboard = () => {
         <div className='space-y-4 mt-6 max-w-5xl'>
           <p className='text-gray-300 font-medium mb-4'>Recent Creations</p>
           {creations.map((item) => (
-            <CreationItem
-              key={item.id}
-              item={item}
-              expanded={expandedId === item.id}
-              onExpand={() =>
-                setExpandedId(expandedId === item.id ? null : item.id)
-              }
-            />
+            <div key={item.id} className='relative group'>
+              <CreationItem
+                item={item}
+                expanded={expandedId === item.id}
+                onExpand={() =>
+                  setExpandedId(expandedId === item.id ? null : item.id)
+                }
+              />
+              <button
+                onClick={() => deleteCreation(item.id)}
+                className='absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg'
+              >
+                <Trash2 className='w-4 h-4' />
+              </button>
+            </div>
           ))}
         </div>
       )}
