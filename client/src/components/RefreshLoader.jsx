@@ -70,19 +70,13 @@ const RefreshLoader = () => {
         {/* Status Messages */}
         <div className="mt-8 space-y-2 text-xs text-gray-500 font-mono">
           {progress > 20 && (
-            <div className="opacity-60">
-              ✓ AI modules loaded
-            </div>
+            <div className="opacity-60">✓ AI modules loaded</div>
           )}
           {progress > 50 && (
-            <div className="opacity-60">
-              ✓ Neural networks initialized  
-            </div>
+            <div className="opacity-60">✓ Neural networks initialized</div>
           )}
           {progress > 80 && (
-            <div className="opacity-60">
-              ✓ Workspace ready
-            </div>
+            <div className="opacity-60">✓ Workspace ready</div>
           )}
         </div>
       </div>
